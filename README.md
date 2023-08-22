@@ -29,7 +29,7 @@ Clone o repositório e configure as variáveis de ambiente no arquivo appsetting
 
 ## ✨ Endpoints
 
-![Imagem do Swagger](img/swagger.png)
+![Imagem do Swagger](/ConcessionariaApi/img/swagger.png)
 
 ## 🏁 Considerações Finais
 
