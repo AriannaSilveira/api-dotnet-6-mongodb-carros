@@ -20,7 +20,4 @@ public class CreateCarroDto
 
     [Required(ErrorMessage = "Por gentileza, digite o preço do carro.")]
     public float Preco { get; set; }
-
-    [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-    public DateTime DataCadastro { get; set; }
 }
