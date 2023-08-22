@@ -133,7 +133,7 @@ public class CarroController : ControllerBase
         return NoContent();
     }
 
-    [HttpPatch("{id}/marcar-vendido")]
+    [HttpPatch("{id}/vendido")]
     public async Task<IActionResult> MarcarVendido(string id, [FromQuery] float desconto = 0)
     {
         
