@@ -22,10 +22,15 @@ public class CarroController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCarroList(bool vendido = false, [FromQuery] int pagina = 0, [FromQuery] int? ano = null, [FromQuery] string? modelo = null, [FromQuery] float? precoMaiorQue = null, [FromQuery] float? precoMenorQue = null, [FromQuery] DateTime? dataCadastroMaiorQue = null, [FromQuery] DateTime? dataCadastroMenorQue = null)
+    public async Task<IActionResult> GetCarroList([FromQuery] bool? vendido = null, [FromQuery] int pagina = 0, [FromQuery] int? ano = null, [FromQuery] string? modelo = null, [FromQuery] float? precoMaiorQue = null, [FromQuery] float? precoMenorQue = null, [FromQuery] DateTime? dataCadastroMaiorQue = null, [FromQuery] DateTime? dataCadastroMenorQue = null)
     {
         var constructor = Builders<Carro>.Filter;
-        var condition = constructor.Eq(c => c.Vendido, vendido);
+        var condition = Builders<Carro>.Filter.Empty;
+
+        if (vendido.HasValue)
+        {
+            condition &= constructor.Eq(c => c.Vendido, vendido.Value);
+        }
 
         if (ano.HasValue)
         {
