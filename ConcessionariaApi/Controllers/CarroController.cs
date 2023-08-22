@@ -163,11 +163,10 @@ public class CarroController : ControllerBase
             return ValidationProblem(ModelState);
         }
 
-        if (desconto > 0)
-        {
-            var valorDesconto = (desconto / 100) * carro.Preco;
-            carro.PrecoVendido -= valorDesconto;
-        }
+        
+        var valorDesconto = (desconto / 100) * carro.Preco;
+        carro.PrecoVendido -= valorDesconto;
+        
 
         carro.Vendido = true;
         carro.DataVenda = DateTime.UtcNow;
@@ -196,7 +195,7 @@ public class CarroController : ControllerBase
             Builders<Carro>.Filter.Eq(c => c.Vendido, true);
 
         var carrosVendidos = await _context.Carros.Find(filtro).ToListAsync();
-        float valorTotalVendas = carrosVendidos.Sum(c => c.Preco);
+        float valorTotalVendas = carrosVendidos.Sum(c => c.PrecoVendido);
         
         var vendas = new
         {
