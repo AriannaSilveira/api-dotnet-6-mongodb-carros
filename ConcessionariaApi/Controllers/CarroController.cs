@@ -166,7 +166,7 @@ public class CarroController : ControllerBase
         if (desconto > 0)
         {
             var valorDesconto = (desconto / 100) * carro.Preco;
-            carro.Preco -= valorDesconto;
+            carro.PrecoVendido -= valorDesconto;
         }
 
         carro.Vendido = true;
@@ -175,7 +175,7 @@ public class CarroController : ControllerBase
 
         var filter = Builders<Carro>.Filter.Eq(c => c.Id, id);
         var update = Builders<Carro>.Update.Set(c => c.Vendido, carro.Vendido)
-            .Set(c => c.Preco, carro.Preco)
+            .Set(c => c.PrecoVendido, carro.PrecoVendido)
             .Set(c => c.DataVenda, carro.DataVenda);
 
         await _context.Carros.UpdateOneAsync(filter, update);

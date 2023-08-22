@@ -31,4 +31,6 @@ public class Carro
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
     public DateTime DataVenda { get; set; }
 
+    public float PrecoVendido { get; set; }
+
 }
