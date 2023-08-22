@@ -134,13 +134,9 @@ public class CarroController : ControllerBase
     }
 
     [HttpPatch("{id}/marcar-vendido")]
-    public async Task<IActionResult> MarcarVendido(string id, JsonPatchDocument<MarcarCarroVendidoDto> patch, [FromQuery] float desconto = 0)
+    public async Task<IActionResult> MarcarVendido(string id, [FromQuery] float desconto = 0)
     {
-        if (patch == null)
-        {
-            return BadRequest();
-        }
-
+        
         var carro = await _context.Carros.Find(c => c.Id == id).FirstOrDefaultAsync();
 
         if (carro == null)
@@ -154,16 +150,6 @@ public class CarroController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var carroToUpdate = _mapper.Map<MarcarCarroVendidoDto>(carro);
-
-        patch.ApplyTo(carroToUpdate, ModelState);
-
-        if (!TryValidateModel(carroToUpdate))
-        {
-            return ValidationProblem(ModelState);
-        }
-
-        
         var valorDesconto = (desconto / 100) * carro.Preco;
         carro.PrecoVendido -= valorDesconto;
         
